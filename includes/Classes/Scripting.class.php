@@ -12,8 +12,54 @@
 
 namespace Classes;
 
-class Scripting {
-    
+class Scripting extends Singleton {
+    private static $script = [];
+    private static $content = [];
+
+    public static function registerScript($scriptName) {
+        self::$script[] = $scriptName;
+    }
+
+    public static function loadFunctions() {
+        if (count(self::$script)) {
+            for ($i=0;$i<self::$script;++$i) {
+                $file = fopen('includes/Scripts/'.self::$script[$i], 'rb');
+                while (($buff = fgets($file, 4096)) !== false) {
+                    //Zerlege Script in die einzelnen Funktionen
+                    //und speichere sie entsprechend ab
+                }
+            }
+        }
+    }
+
+    //MySQL Scripts
+    public static function _OnMySQLConnect() {
+        eval(self::$content['MySQL']['OnConnect']);
+    }
+
+    public static function _OnMySQLClose() {
+        eval(self::$content['MySQL']['OnClose']);
+    }
+
+    public static function _OnQueryExecute(&$sql) {
+        eval(self::$content['MySQL']['OnConnect']);
+    }
+
+
+    //Loader Scripts
+    public static function _OnLoaderLoad() {
+        eval(self::$content['Loader']['OnLoad']);
+    }
+
+
+    //User Scripts
+    public static function _OnUserLogin($userObj) {
+        eval(self::$content['User']['OnLogin']);
+    }
+
+    public static function _OnUserLogout($userObj) {
+        eval(self::$content['User']['OnLogout']);
+    }
 }
 
 ?>
