@@ -12,12 +12,10 @@
 
 session_start();
 
+require_once 'includes/Classes/Autoload.class.php';
+
 function __autoload($name) {
-    if (file_exists('includes/'.$name.'.class.php'))
-        require_once 'includes/'.$name.'.class.php';
-    else 
-        throw new \Exception('Beim Laden der Klasse '.$name.' ist ein Fehler aufgetreten. 
-                             Datei ./includes/'.$name.'.class.php existiert nicht!', 0x01);
+    require_once \Classes\Main\AutoLoad::getFilePath($name);
 }
 
 function exceptionHandler($exception) {
