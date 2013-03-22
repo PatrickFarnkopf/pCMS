@@ -37,7 +37,7 @@ if (isset($_GET['p'])) {
         case 'logout': 
             $_SESSION = []; 
             header("Refresh: 5; ?p=login"); 
-            echo "Sie werden in 5 Sekunden in der Login-Bereich weitergeleitet.";  
+            echo "Sie werden in 5 Sekunden in den Login-Bereich weitergeleitet.";  
             break;
 	}
 } else {
