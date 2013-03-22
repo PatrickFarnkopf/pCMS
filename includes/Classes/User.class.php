@@ -88,6 +88,17 @@ class User extends \Classes\Singleton {
 
         return $status;
     }
+
+    public static function getUsers() {
+        $users = [];
+        $result = self::getInstance('\Classes\MySQL')->Query("SELECT * FROM user");
+        for ($i = 0; $row = $result->fetch(); $i++) {
+            $users[$i]['id'] = $row->id;
+            $users[$i]['name'] = $row->username;
+            $users[$i]['email'] = $row->email;
+        }
+        return $users;
+    }
 }
 
 ?>

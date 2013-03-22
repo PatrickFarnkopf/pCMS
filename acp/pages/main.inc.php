@@ -29,8 +29,8 @@ if (!$user->isLoggedIn()) {
             <h1><span class="bing">p</span>CMS</h1>
         </div>
         <ul id="nav">
-            <li class="current"><a href="#">&Uuml;bersicht</a></li>
-            <li><a href="#">Benutzer</a></li>
+            <li class="current"><a href="?p=main">&Uuml;bersicht</a></li>
+            <li><a href="?p=user">Benutzer</a></li>
             <li><a href="#">Medien</a></li>  
             <li><a href="#">Styles</a></li>
             <li><a href="#">Inhalte</a></li>
