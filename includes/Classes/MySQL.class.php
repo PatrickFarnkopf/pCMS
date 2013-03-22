@@ -17,6 +17,7 @@ class MySQL extends \Classes\Singleton implements \Config\MySQL {
             if (!$data) {
                 $dsn = 'mysql:host='.\Config\MySQL::HOST_ADDRESS;
                 $this->pdoInstance = new \PDO($dsn, \Config\MySQL::USERNAME, \Config\MySQL::PASSWORD);
+                $this->selectDatabase(\Config\MySQL::DATABASE);
             } else {
                 $dsn = 'mysql:host='.$data[\Classes\Server::MYSQL_HOST];
                 $this->pdoInstance = new \PDO($dsn, $data[\Classes\Server::MYSQL_USER], $data[\Classes\Server::MYSQL_PASS]);

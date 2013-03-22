@@ -15,7 +15,7 @@ session_start();
 require_once '../includes/Classes/AutoLoad.class.php';
 
 function __autoload($name) {
-    require_once '../'.\Classes\Main\AutoLoad::getFilePath($name);
+    require_once '.'.\Classes\Main\AutoLoad::getFilePath($name);
 }
 
 function exceptionHandler($exception) {
@@ -33,8 +33,12 @@ if (isset($_GET['p'])) {
 	switch ($_GET['p']) {
 		case 'login': 	require_once 'pages/login.inc.php'; break;
 		case 'main': 	require_once 'pages/main.inc.php'; break;
-		case 'logout': 	require_once 'pages/logout.inc.php'; break;
 		case 'user': 	require_once 'pages/user.inc.php'; break;
+        case 'logout': 
+            $_SESSION = []; 
+            header("Refresh: 5; ?p=login"); 
+            echo "Sie werden in 5 Sekunden in der Login-Bereich weitergeleitet.";  
+            break;
 	}
 } else {
 	header('Location: ?p=login');

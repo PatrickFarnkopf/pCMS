@@ -22,6 +22,10 @@ abstract class Singleton {
         return self::$instance[$class];
     }
 
+    public static function registerSelf($name, $object) {
+        self::$instance[$name] = $object;
+    }
+
     final public function __clone() {
         throw new \Exception('Singleton Klassen duerfen nicht geklont werden!', 0xA1);
     }

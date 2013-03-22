@@ -14,7 +14,7 @@ namespace Classes;
 
 class ExceptionHandler {
     public static function handleException($exception) {
-        
+        echo '<pre>'.$exception.'</pre>';
     }
 }
 
