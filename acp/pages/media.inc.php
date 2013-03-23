@@ -48,9 +48,25 @@ if (!$user->isLoggedIn()) {
             <div class="infoUp">
                 <input id="url" type="hidden" value="pages/uploader.php">
             </div>
-
+            <br><br>
             <div id="images">
-                
+                <?php
+                    $dir = new \Classes\Directory('../media/uploads');
+                    $files = $dir->getFiles();
+
+                    for ($i=0, $c=0;$i<count($files);$i++, $c++) {
+                        if ($c < 3)
+                            echo '<div class="viertel-box"><img src="../media/uploads/'.$files[$i].'"></div>'."\n";
+                        else {
+                            echo '<div class="viertel-box lastbox"><img src="../media/uploads/'.$files[$i].'"></div>'."\n";
+                            echo '<div style="clear: both;"></div>';
+                            $c = -1;
+                        }
+                    }
+                    echo '<div style="clear: both;"></div>';
+
+                ?>
+
             </div>
         </div>
         <script src="../js/script.js"></script>

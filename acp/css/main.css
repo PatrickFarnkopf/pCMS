@@ -162,6 +162,7 @@ html[xmlns] #nav {
     background: rgba(180, 180, 180, 0.5);
     width:760px;
     min-height: 360px;
+    height: auto;
     margin:10px auto 0px auto;
     border-radius: 17px;
     box-shadow: 0 0 3px;
@@ -420,3 +421,42 @@ header .stuts span {
 #result .f {
     background-color: #fcc577;
 }
+
+.halbe-box          { width: 47.5%; }
+.drittel-box        { width: 29.5%; }
+.viertel-box        { width: 20.0%; }
+.fuenftel-box       { width: 16.7%; }
+.zweidrittel-box    { width: 65.3%; }
+.dreiviertel-box    { width: 74.0%; }
+.zweifuenftel-box   { width: 37.2%; }
+.dreifuenftel-box   { width: 58.0%; }
+.vierfuenftel-box   { width: 79.0%; }
+
+.halbe-box, .drittel-box, .zweidrittel-box, .viertel-box, .dreiviertel-box, .fuenftel-box, .zweifuenftel-box, .dreifuenftel-box, .vierfuenftel-box {
+    position: relative;
+    display: inline-block;
+    *display: inline;
+    float: left;
+    margin-right: 4%;
+    margin-bottom: 15px;
+    overflow: hidden;
+    height: 120px;
+    box-shadow: 0 0 8px black;
+    border-radius: 8px;
+}
+
+.lastbox {
+    margin-right: 0 !important;
+}
+
+#images {
+    padding-left:50px;
+    text-align: center;
+    margin: 0px auto;
+}
+
+#images img {
+    max-height: 300px;
+    max-width: 300px;
+}
+
