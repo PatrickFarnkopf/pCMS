@@ -14,8 +14,20 @@ namespace Classes;
 class User extends \Classes\Singleton {
     private $username, $password, $email, $id;
 
-    public function __construct() {
+    public function __construct($id = false) {
         self::registerSelf('user', $this);
+
+        if ($id !== false) {
+            $result = self::getInstance('\Classes\MySQL')->Query('SELECT * FROM user WHERE id = '.$id);
+            if ($row = $result->fetch()) {
+                $this->setId($id);
+                $this->setUsername($row->username);
+                $this->setEmail($row->email);
+                $this->password = $row->password;
+                return;
+            }
+        }
+
         if (isset($_SESSION['is_loggedin']) && $_SESSION['is_loggedin']) {
             $this->username = $_SESSION['username'];
             $this->id = $_SESSION['id'];
@@ -32,11 +44,15 @@ class User extends \Classes\Singleton {
     }
 
     public function setPassword($pass) {
-        $this->password = $pass;
+        $this->password = md5($pass);
     }
 
     public function setEmail($email) {
         $this->email = $email;
+    }
+
+    public function setId($id) {
+        $this->id = $id;
     }
 
     public function getUsername() {
@@ -51,6 +67,10 @@ class User extends \Classes\Singleton {
         return $this->email;
     }
 
+    public function getId() {
+        return $this->id;
+    }
+
     public function isLoggedIn() {
         return isset($_SESSION['is_loggedin']);
     }
@@ -58,7 +78,7 @@ class User extends \Classes\Singleton {
     public function auth() {
         $result = self::getInstance('\Classes\MySQL')->Query("SELECT * FROM user WHERE username = '".$this->username."'");
         if ($row = $result->fetch()) {
-            if ($row->password == md5($this->getPassword())) {
+            if ($row->password == $this->getPassword()) {
                 $_SESSION['is_loggedin'] = true;
                 $_SESSION['username'] = $row->username;
                 $_SESSION['id'] = $row->id;
@@ -84,9 +104,13 @@ class User extends \Classes\Singleton {
         else
             $status = 4;
 
-        self::getInstance('\Classes\MySQL')->Query("INSERT INTO user (username, password, email) VALUES ('".$this->getUsername()."','".md5($this->getPassword())."', '".$this->getEmail()."')");
+        self::getInstance('\Classes\MySQL')->Query("INSERT INTO user (username, password, email) VALUES ('".$this->getUsername()."','".$this->getPassword()."', '".$this->getEmail()."')");
 
         return $status;
+    }
+
+    public function saveToDB() {
+        self::getInstance('\Classes\MySQL')->Query('UPDATE user SET username = \''.$this->getUsername().'\', password = \''.$this->getPassword().'\', email = \''.$this->getEmail().'\' WHERE id = '.$this->getId());
     }
 
     public static function getUsers() {

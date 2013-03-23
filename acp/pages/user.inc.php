@@ -33,6 +33,23 @@ if (isset($_GET['a'])) {
             case 4: $registerStatus = 'Benuter erfolgreich erstellt'; break;
         }
     }
+
+    if ($_GET['a'] === 'edit') {
+        $user = new \Classes\User($_POST['id']);
+        $user->setUsername($_POST['username']);
+        $user->setEmail($_POST['email']);
+        
+        if (isset($_POST['password']) && isset($_POST['password_wdh'])) {
+            $pass = trim($_POST['password']);
+            if (!empty($pass)) {
+                if ($_POST['password'] == $_POST['password_wdh']) {
+                    $user->setPassword($pass);
+                }
+            }
+        }
+
+        $user->saveToDB();
+    }
 }
 
 if (isset($_GET['delete'])) {
@@ -53,12 +70,23 @@ $users = \Classes\User::getUsers();
         <script src="http://code.jquery.com/jquery-1.8.3.js"></script>
         <script src="http://code.jquery.com/ui/1.10.0/jquery-ui.js"></script>
         <script>
-        function check(id, val) {
+        function check(id, name, email, val) {
             $(function() {
-                if (val == 1 || val == 2) return;
-                document.getElementById('del').innerHTML = "<a href='?p=user&delete="+id+"' class='jbutton'>L&ouml;schen</a>";
-                document.getElementById('dialog').style.display='block';
-                $( "#dialog" ).dialog();
+                if (val == 1) return;
+                if (val == 2) {
+                    document.getElementById('id').value = id;
+                    document.getElementById('user').value = name;
+                    document.getElementById('email').value = email;
+                    document.getElementById('pass').value = '          ';
+                    document.getElementById('passwdh').value = '          ';
+                    document.getElementById('editUserDialog').style.display='block';
+                    $( "#editUserDialog" ).dialog();  
+                } else {
+                    document.getElementById('del').innerHTML = "<a href='?p=user&delete="+id+"' class='jbutton'>L&ouml;schen</a>";
+                    document.getElementById('deleteDialog').style.display='block';
+                    $( "#deleteDialog" ).dialog();  
+                }
+                
               });
         }
         </script>
@@ -93,13 +121,13 @@ $users = \Classes\User::getUsers();
                     </thead>
                     <tbody>               
                     <? for ($i=0;$i<count($users);$i++) { ?>
-                    <form onchange="check(this)" name="<?=$users[$i]['name']?>" action="?p=user&a=opt&v=<?=$users[$i]['id']?>" method="post">
+                    <form name="<?=$users[$i]['name']?>" action="?p=user&a=opt&v=<?=$users[$i]['id']?>" method="post">
                         <tr>
                             <td><?=$users[$i]['id']?></td>
                             <td><?=$users[$i]['name']?></td>
                             <td><?=$users[$i]['email']?></td>
                             <td>
-                                <select name="option" onchange="check(<?=$users[$i]['id']?>, this.value)">
+                                <select name="option" onchange="check(<?=$users[$i]['id']?>, '<?=$users[$i]['name']?>', '<?=$users[$i]['email']?>', this.value)">
                                     <option value="1">bitte w&auml;hlen</option>
                                     <option value="2">bearbeiten</option>
                                     <option value="3">l&ouml;schen</option>
@@ -115,16 +143,27 @@ $users = \Classes\User::getUsers();
                 <div class="header">Benutzer anlegen</div>
                 <div class="regInfo"><?=$registerStatus?></div>
                 <form action="?p=user&a=register" method="post">
-                    <input type="text" name="username" placeholder="Benutzername"><br>
-                    <input type="text" name="email" placeholder="Email"><br>
-                    <input type="password" name="password" placeholder="Passwort"><br>
-                    <input type="password" name="password_wdh" placeholder="Passwort wiederholen"><br>
+                    <input type="text" name="username" placeholder="Benutzername" autocomplete='off'><br>
+                    <input type="text" name="email" placeholder="Email" autocomplete='off'><br>
+                    <input type="password" name="password" placeholder="Passwort" autocomplete='off'><br>
+                    <input type="password" name="password_wdh" placeholder="Passwort wiederholen" autocomplete='off'><br>
                     <input type="submit" name="register" value="Benutzer anlegen" class="button">
                 </form>
 
-                <div id="dialog" title="Benutzer l&ouml;schen" style="display:none;">
+                <div id="deleteDialog" title="Benutzer l&ouml;schen" style="display:none;">
                     <br>Benutzer entfernen<br><br>
                     <p id="del"></p>
+                </div>
+
+                <div id="editUserDialog" title="Benutzer bearbeiten" style="display:none;">
+                    <form action="?p=user&a=edit" method="post">
+                        <input type="hidden" name="id" id="id">
+                        <input type="text" name="username" placeholder="Benutzername" id="user" autocomplete='off'><br>
+                        <input type="text" name="email" placeholder="Email" id="email" autocomplete='off'><br>
+                        <input type="password" name="password" placeholder="Passwort" id="pass" autocomplete='off'><br>
+                        <input type="password" name="password_wdh" placeholder="Passwort wiederholen" id="passwdh" autocomplete='off'><br>
+                        <input type="submit" name="register" value="Benutzer &auml;ndern" class="button">
+                    </form>
                 </div>
 
             </div>
