@@ -17,6 +17,7 @@ if (!$user->isLoggedIn()) {
 }
 
 $registerStatus = '<br>';
+$deleteStatus = '<br>';
 
 if (isset($_GET['a'])) {
     if ($_GET['a'] === 'register') {
@@ -34,6 +35,13 @@ if (isset($_GET['a'])) {
     }
 }
 
+if (isset($_GET['delete'])) {
+    switch (\Classes\User::delete($_GET['delete'])) {
+        case 1: $deleteStatus = 'Benutzer entfernt'; break;
+        case 2: $deleteStatus = 'Benutzer nicht gefunden'; break;
+    }
+}
+
 $users = \Classes\User::getUsers();
 ?>
 
@@ -41,6 +49,19 @@ $users = \Classes\User::getUsers();
     <head>
         <title>pCMS ACP</title>
         <link rel="stylesheet" href="css/main.css">
+        <link rel="stylesheet" href="http://code.jquery.com/ui/1.10.0/themes/base/jquery-ui.css" />
+        <script src="http://code.jquery.com/jquery-1.8.3.js"></script>
+        <script src="http://code.jquery.com/ui/1.10.0/jquery-ui.js"></script>
+        <script>
+        function check(id, val) {
+            $(function() {
+                if (val == 1 || val == 2) return;
+                document.getElementById('del').innerHTML = "<a href='?p=user&delete="+id+"' class='jbutton'>L&ouml;schen</a>";
+                document.getElementById('dialog').style.display='block';
+                $( "#dialog" ).dialog();
+              });
+        }
+        </script>
     </head>
     <body>
         <div class="logo">
@@ -60,6 +81,7 @@ $users = \Classes\User::getUsers();
         <div id="main">
             <div class="userlist">
                 <div class="header">Registrierte Benutzer</div>
+                <div class="info"><?=$deleteStatus?></div>
                 <table>
                     <thead>
                         <tr>
@@ -71,18 +93,20 @@ $users = \Classes\User::getUsers();
                     </thead>
                     <tbody>               
                     <? for ($i=0;$i<count($users);$i++) { ?>
+                    <form onchange="check(this)" name="<?=$users[$i]['name']?>" action="?p=user&a=opt&v=<?=$users[$i]['id']?>" method="post">
                         <tr>
                             <td><?=$users[$i]['id']?></td>
                             <td><?=$users[$i]['name']?></td>
                             <td><?=$users[$i]['email']?></td>
                             <td>
-                                <select name="option">
+                                <select name="option" onchange="check(<?=$users[$i]['id']?>, this.value)">
                                     <option value="1">bitte w&auml;hlen</option>
                                     <option value="2">bearbeiten</option>
                                     <option value="3">l&ouml;schen</option>
                                 </select>
                             </td>
                         </tr>
+                        </form>
                     <? } ?>
                     </tbody>
                 </table>
@@ -97,6 +121,12 @@ $users = \Classes\User::getUsers();
                     <input type="password" name="password_wdh" placeholder="Passwort wiederholen"><br>
                     <input type="submit" name="register" value="Benutzer anlegen" class="button">
                 </form>
+
+                <div id="dialog" title="Benutzer l&ouml;schen" style="display:none;">
+                    <br>Benutzer entfernen<br><br>
+                    <p id="del"></p>
+                </div>
+
             </div>
         </div>
 

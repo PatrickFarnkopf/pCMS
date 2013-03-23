@@ -227,6 +227,13 @@ html[xmlns] #nav {
     font-size: 13px;
 }
 
+#main .userlist .info {
+    text-align: center;
+    color:red;
+    font-weight: bold;
+    font-size: 13px;
+}
+
 input[type=text], input[type=password] {
     -webkit-border-radius: 3px;
     -moz-border-radius: 3px;
@@ -270,6 +277,30 @@ input:-moz-placeholder { color:#aaa; }
     transition: all 0.5s ease;
     color:black;
     border: 1px solid black;
+    text-decoration: none;
+}
+
+.button:hover {
+    box-shadow: 0 1px 0 grey;
+}
+
+.jbutton {
+    width:200px;
+    padding:8px;
+    background-image: -webkit-linear-gradient(#777 0%, #AAA 50%, #777 100%); 
+    background-image: -moz-linear-gradient(#777 0%, #AAA 50%, #777 100%); 
+    background-image: -o-linear-gradient(#777 0%, #AAA 50%, #777 100%); 
+    background-image: linear-gradient(#777 0%, #AAA 50%, #777 100%);
+    border-radius: 8px;
+    -webkit-transition: all 0.5s ease;
+    -moz-transition: all 0.5s ease;
+    -ms-transition: all 0.5s ease;
+    -o-transition: all 0.5s ease;
+    transition: all 0.5s ease;
+    color:#EEE;
+    border: 1px solid black;
+    box-shadow: 0 0 5px;
+    text-decoration: none;
 }
 
 #footer {

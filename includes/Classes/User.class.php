@@ -91,13 +91,22 @@ class User extends \Classes\Singleton {
 
     public static function getUsers() {
         $users = [];
-        $result = self::getInstance('\Classes\MySQL')->Query("SELECT * FROM user");
+        $result = self::getInstance('\Classes\MySQL')->Query('SELECT * FROM user');
         for ($i = 0; $row = $result->fetch(); $i++) {
             $users[$i]['id'] = $row->id;
             $users[$i]['name'] = $row->username;
             $users[$i]['email'] = $row->email;
         }
         return $users;
+    }
+
+    public static function delete($id) {
+        if (self::getInstance('\Classes\MySQL')->Query('SELECT * FROM user WHERE id = '.$id)->getRowsCount()) {
+            self::getInstance('\Classes\MySQL')->Query('DELETE FROM user WHERE id = '.$id);
+            return 1;
+        }
+        else 
+            return 2;
     }
 }
 
