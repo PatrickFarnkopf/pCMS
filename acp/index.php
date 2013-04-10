@@ -29,6 +29,9 @@ function exceptionErrorHandler($errno, $errstr, $errfile, $errline) {
 set_error_handler('exceptionErrorHandler');
 set_exception_handler('exceptionHandler');
 
+\Classes\ScriptLoader::loadMySQLScripts();
+\Classes\ScriptLoader::loadUserScripts();
+
 if (isset($_GET['p'])) {
 	switch ($_GET['p']) {
 		case 'login': 	require_once 'pages/login.inc.php'; break;

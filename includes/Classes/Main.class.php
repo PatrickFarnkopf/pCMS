@@ -13,12 +13,9 @@
 namespace Classes;
 
 class Main {
-    public function __construct() {
-        $this->main();
-    }
-
-    private function main() {
-
+    public static function start() {
+        ScriptLoader::loadMySQLScripts();
+        ScriptLoader::loadUserScripts();
     }
 }
 

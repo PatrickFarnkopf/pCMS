@@ -31,7 +31,7 @@ class User extends \Classes\Singleton {
         if (isset($_SESSION['is_loggedin']) && $_SESSION['is_loggedin']) {
             $this->username = $_SESSION['username'];
             $this->id = $_SESSION['id'];
-            $result = self::getInstance('\Classes\MySQL')->Query("SELECT * FROM user WHERE id = ".$this->id);
+            $result = self::getInstance('\Classes\MySQL')->Query('SELECT * FROM user WHERE id = '.$this->id);
             if ($row = $result->fetch()) {
                 $this->password = $row->password;
                 $this->email = $row->email;
@@ -41,6 +41,7 @@ class User extends \Classes\Singleton {
 
     public function setUsername($name) {
         $this->username = $name;
+        $_SESSION['username'] = $name;
     }
 
     public function setPassword($pass) {
@@ -53,6 +54,7 @@ class User extends \Classes\Singleton {
 
     public function setId($id) {
         $this->id = $id;
+        $_SESSION['id'] = $id;
     }
 
     public function getUsername() {
@@ -80,8 +82,9 @@ class User extends \Classes\Singleton {
         if ($row = $result->fetch()) {
             if ($row->password == $this->getPassword()) {
                 $_SESSION['is_loggedin'] = true;
-                $_SESSION['username'] = $row->username;
-                $_SESSION['id'] = $row->id;
+                $this->setId($row->id);
+                $this->setUsername($row->username);
+                self::getInstance('\Classes\Scripting\UserScript')->_OnLogin($this);
                 return true;
             }
         }
@@ -105,12 +108,17 @@ class User extends \Classes\Singleton {
             $status = 4;
 
         self::getInstance('\Classes\MySQL')->Query("INSERT INTO user (username, password, email) VALUES ('".$this->getUsername()."','".$this->getPassword()."', '".$this->getEmail()."')");
-
+        self::getInstance('\Classes\Scripting\UserScript')->_OnRegister($this, $status);
         return $status;
     }
 
     public function saveToDB() {
         self::getInstance('\Classes\MySQL')->Query('UPDATE user SET username = \''.$this->getUsername().'\', password = \''.$this->getPassword().'\', email = \''.$this->getEmail().'\' WHERE id = '.$this->getId());
+    }
+
+    public function logout() {
+        self::getInstance('\Classes\Scripting\UserScript')->_OnLogout($this);
+        $_SESSION = [];
     }
 
     public static function getUsers() {

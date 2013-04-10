@@ -24,6 +24,9 @@ class AutoLoad {
             return './includes/'.str_replace('\\','/',$namespace_).'.conf.php';
         if (strstr($namespace_, 'Classes'))
             return './includes/'.str_replace('\\','/',$namespace_).'.class.php';
+        if (strstr($namespace_, 'Scripts'))
+            return './includes/'.str_replace('\\','/',$namespace_).'.script.php';
+            
         return false;
     }
 }

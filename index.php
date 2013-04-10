@@ -12,7 +12,7 @@
 
 session_start();
 
-require_once 'includes/Classes/Autoload.class.php';
+require_once 'includes/Classes/AutoLoad.class.php';
 
 function __autoload($name) {
     require_once \Classes\Main\AutoLoad::getFilePath($name);
@@ -29,6 +29,6 @@ function exceptionErrorHandler($errno, $errstr, $errfile, $errline) {
 set_error_handler('exceptionErrorHandler');
 set_exception_handler('exceptionHandler');
 
-new \Classes\Main();
+\Classes\Main::start();
 
 ?>

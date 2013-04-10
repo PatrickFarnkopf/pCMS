@@ -28,6 +28,8 @@ class MySQL extends \Classes\Singleton implements \Config\MySQL {
         } catch (\Exception $e) {
             $this->isAlive = false;
         }
+
+        self::getInstance('\Classes\Scripting\MySQLScript')->_OnConnect();
     }
 
     public function selectDatabase($db) {
@@ -46,6 +48,7 @@ class MySQL extends \Classes\Singleton implements \Config\MySQL {
     */
     public function Query($query) {
         try {
+            self::getInstance('\Classes\Scripting\MySQLScript')->_OnQueryExecute($query);
             $result = $this->pdoInstance->query($query);
             return new \Classes\MySQL\Result($result);
         } catch (\Exception $e) {
