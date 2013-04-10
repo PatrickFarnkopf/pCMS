@@ -76,15 +76,6 @@ var totalProgress = 0;
                 }
             }
         }
-        if (xmlHttp) {
-            xmlHttp.open('GET', 'pages/fileLoader.php', true);
-            xmlHttp.onreadystatechange = function () {
-                if (xmlHttp.readyState == 4) {
-                    imgs.innerHTML = xmlHttp.responseText;
-                }
-            };
-            xmlHttp.send(null);
-        }
     }
 
     
