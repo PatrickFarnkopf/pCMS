@@ -16,6 +16,10 @@ class Main {
     public static function start() {
         ScriptLoader::loadMySQLScripts();
         ScriptLoader::loadUserScripts();
+
+        $page = new Page(1);
+        $page->generate();
+        echo $page->getContent();
     }
 }
 

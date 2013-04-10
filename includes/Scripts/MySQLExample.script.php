@@ -14,16 +14,15 @@ namespace Scripts;
 
 class MySQLExample extends \Classes\Scripting\MySQLScript {
     function OnConnect() {
-        //echo 'Ich bin ein Script und werde beim Verbinden ausgef&uuml;hrt!';
-        //exit;
+        //Wird beim Verbinden mit dem MySQL Server aufgerufen
     }
 
     function OnClose() {
-        //echo 'Ich bin ein Script und werde beim beenden der Verbindung ausgef&uuml;hrt!';
+        //Wird beim Trennen der MySQL Server Verbindung aufgerufen
     }
 
     function OnQueryExecute(&$sql) {
-        echo $sql.'<br>';
+        //Wird aufgerufen bevor ein Query durchgeführt wird.
     }
 }
 
