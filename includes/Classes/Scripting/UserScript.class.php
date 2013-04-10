@@ -13,10 +13,10 @@
 namespace Classes\Scripting;
 
 class UserScript extends \Classes\Singleton {
-    
+
     function OnLogin(\Classes\User $user) { }
     function OnLogout(\Classes\User $user) { }
-    function OnLogout(\Classes\User $user, &$status) { }
+    function OnRegister(\Classes\User $user, &$status) { }
 
     public function _OnLogin(\Classes\User $user) {
         foreach (\Classes\ScriptLoader::$userScripts as $script) {
