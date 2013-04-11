@@ -3,6 +3,38 @@ background-color: darkblue;
 color: white;
 text-align: center;
 }
-.box_one { 
-margin-top: 150px;
+#main { 
+background-color: #DDD;
+width: 70%;
+height: 400px;
+border-radius: 8px;
+border: 1px solid black;
+box-shadow: 0 0 9px black;
+color: #333;
+margin: 0px auto;
+}
+#nav { 
+margin: 6px auto;
+padding: 7px 6px 0;
+line-height: 100%;
+border-radius: 2em;
+height: 40px;
+background-color: #ddd;
+width: 70%;
+}
+#nav li { 
+margin: 0 5px;
+padding: 0 0 8px;
+float: left;
+position: relative;
+list-style: none;
+}
+#nav a { 
+font-weight: bold;
+color: #555;
+text-decoration: none;
+display: block;
+padding: 8px 20px;
+margin: 0;
+border-radius: 1.6em;
 }

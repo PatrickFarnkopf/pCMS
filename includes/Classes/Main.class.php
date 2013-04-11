@@ -17,7 +17,7 @@ class Main {
         ScriptLoader::loadMySQLScripts();
         ScriptLoader::loadUserScripts();
 
-        $page = new Page(1);
+        $page = new Page('Default');
         $page->generate();
         echo $page->getContent();
     }

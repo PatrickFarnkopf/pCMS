@@ -16,13 +16,13 @@ class Page extends Singleton {
 
     private $pageName, $styleId, $templateId, $pageId;
 
-    public function __construct($id) {
-        $result = self::getInstance('\Classes\MySQL')->tableAction('pages')->select(NULL, ['id' => $id]);
+    public function __construct($pageName) {
+        $result = self::getInstance('\Classes\MySQL')->tableAction('pages')->select(NULL, ['name' => $pageName]);
         if ($row = $result->fetch()) {
             $this->pageName = $row->name;
             $this->styleId = $row->style_id;
             $this->templateId = $row->template_id;
-            $this->pageId = $id;
+            $this->pageId = $row->id;
         }
     }
 
@@ -73,12 +73,29 @@ class Page extends Singleton {
             $styleContent .= "}\n";
         }
 
+        $template = str_replace('#{NAVIGATION}', $this->getNav(), $template);
+
         file_put_contents($this->stylePath, $styleContent);
-        file_put_contents('Cache/index.html', $template);
+        file_put_contents('Cache/pages/'.$this->pageName.'.html', $template);
+    }
+
+    private function getNav() {
+        $result = self::getInstance('\Classes\MySQL')
+            ->tableAction('navigation')
+            ->select();
+        $nav = '';
+        while ($row = $result->fetch()) {
+            if (str_replace('?p=', '', $row->link) == $this->pageName) 
+                $nav .= '<li class="current"><a href="'.$row->link.'">'.$row->name.'</a></li>'."\n";
+            else 
+                $nav .= '<li><a href="'.$row->link.'">'.$row->name.'</a></li>'."\n";
+        }
+
+        return $nav;
     }
 
     public function getContent() {
-        return file_get_contents('Cache/index.html');
+        return file_get_contents('Cache/pages/'.$this->pageName.'.html');
     }
 }
 

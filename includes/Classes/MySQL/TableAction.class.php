@@ -60,7 +60,7 @@ class tableAction {
     *   @param Array Dateninhalte
     *   @return MySQL
     */
-    public function select($content, $condition) {
+    public function select($content = NULL, $condition = NULL) {
         $query = self::buildSelectQuery($content, $condition);
         return $this->mysql->Query($query);
     }
@@ -90,7 +90,7 @@ class tableAction {
     *   @param Array Bedingung
     *   @return String Query
     */
-    protected function buildSelectQuery($content, $condition) {
+    protected function buildSelectQuery($content = NULL, $condition = NULL) {
         $query = "SELECT ";
 
         if (is_array($content)) {
