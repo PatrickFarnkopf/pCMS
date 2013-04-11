@@ -34,10 +34,11 @@ set_exception_handler('exceptionHandler');
 
 if (isset($_GET['p'])) {
 	switch ($_GET['p']) {
-		case 'login': 	require_once 'pages/login.inc.php'; break;
+		case 'login':   require_once 'pages/login.inc.php'; break;
 		case 'main':    require_once 'pages/main.inc.php'; break;
         case 'media':   require_once 'pages/media.inc.php'; break;
-		case 'user': 	require_once 'pages/user.inc.php'; break;
+		case 'user':    require_once 'pages/user.inc.php'; break;
+        case 'styles':    require_once 'pages/styles.inc.php'; break;
         case 'logout': 
             $_SESSION = []; 
             header("Refresh: 5; ?p=login"); 

@@ -35,7 +35,7 @@ if (!$user->isLoggedIn()) {
             <li><a href="?p=main">&Uuml;bersicht</a></li>
             <li><a href="?p=user">Benutzer</a></li>
             <li class="current"><a href="?p=media">Medien</a></li>  
-            <li><a href="#">Styles</a></li>
+            <li><a href="?p=styles">Styles</a></li>
             <li><a href="#">Inhalte</a></li>
             <li><a href="#">Plugins</a></li>
             <li><a href="#">Referenzen</a></li>
