@@ -15,6 +15,7 @@ namespace Classes;
 class ScriptLoader {
     public static $mysqlScripts = [];
     public static $userScripts = [];
+    public static $pageScripts = [];
     
     public static function loadMySQLScripts() {
         self::$mysqlScripts = 
@@ -29,6 +30,14 @@ class ScriptLoader {
         [
             //Hier die User Scripts registrieren
             new \Scripts\UserExample(),
+        ];
+    }
+
+    public static function loadPageScripts() {
+        self::$pageScripts =
+        [
+            //Hier die Page Scripts registrieren
+            new \Scripts\PageExample(),
         ];
     }
 }

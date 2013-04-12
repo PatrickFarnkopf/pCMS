@@ -66,9 +66,9 @@ $users = \Classes\User::getUsers();
     <head>
         <title>pCMS ACP</title>
         <link rel="stylesheet" href="css/main.css">
-        <link rel="stylesheet" href="http://code.jquery.com/ui/1.10.0/themes/base/jquery-ui.css" />
-        <script src="http://code.jquery.com/jquery-1.8.3.js"></script>
-        <script src="http://code.jquery.com/ui/1.10.0/jquery-ui.js"></script>
+        <link rel="stylesheet" href="../js/vendor/jquery-ui.css" />
+        <script src="../js/vendor/jquery-1.8.3.js"></script>
+        <script src="../js/vendor/jquery-ui.js"></script>
         <script>
         function check(id, name, email, val) {
             $(function() {
