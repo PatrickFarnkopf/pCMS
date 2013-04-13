@@ -16,6 +16,8 @@ if (!$user->isLoggedIn()) {
     exit;
 }
 
+if (isset($_POST['color']))
+    echo $_POST['color'];
 
 ?>
 
@@ -40,7 +42,18 @@ if (!$user->isLoggedIn()) {
         </ul>
 
         <div id="main">
-            
+            <h3>Body (gesamte Seite)</h3>
+            <table>
+                <tr>
+                    <td>Hintergrundfarbe</td>
+                    <td><form action="?p=styles" method="post"><input type="color" name="color" onchange="submit();" value="#ff0000"></form></td>
+                </tr>
+
+                <tr>
+                    <td>Schriftfarbe</td>
+                    <td><form action="?p=styles" method="post"><input type="color" name="color" onchange="submit();" value="#ff0000"></form></td>
+                </tr>
+            </table>
         </div>
 
         <div id="footer">

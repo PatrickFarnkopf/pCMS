@@ -14,8 +14,36 @@ namespace Classes;
 
 class Style extends Singleton {
     public function __construct($id) {
-        $this->id = $id;
-        
+        $result = self::getInstance('\Classes\MySQL')
+            ->query("SELECT style_declaration.id AS declId, style_declaration.name AS declName, description, styles.name AS styleName FROM style_declaration LEFT JOIN styles ON style_declaration.sid = styles.id WHERE style_declaration.sid = $id");
+
+        while ($row = $result->fetch()) {
+            $this->data[] = [
+                'styleName' => $row->styleName, 
+                'declName' => $row->declName,
+                'declId' => $row->declId,
+            ];
+        }
+    }
+
+    public function getStyleData() {
+        $sData = [];
+        foreach ($this->data as $i) {
+            $sData[] = [$i, function() {
+                $arR = [];
+
+                self::getInstance('\Classes\MySQL')
+                    ->query('SELECT * FROM style_attribute WHERE sid = '.$i['declId']);
+
+                while ($row = $result->fetch()) {
+                    $arR[] = ['id' => $row->id, 'attr' => $row->attribute, 'value' => $row->value];
+                }
+
+                return $arR;
+            }];
+        }
+
+        return $sData;
     }
 }
 
