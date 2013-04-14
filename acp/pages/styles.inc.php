@@ -59,7 +59,69 @@ if (isset($_POST['color']))
                             ?>
                                 <tr>
                                 <td><?=$value['attr']?></td>
-                                <td><input type="color" name="<?=$value['id']?>" value="<?=$value['value']?>"></td>
+                                <td>
+
+                                    <?
+                                    switch ($value['attr']) {
+                                        case 'background-color': ?>
+                                        <input type="color" name="<?=$value['id']?>" value="<?=$value['value']?>">
+                                        <?
+                                        break;
+                                        case 'color': ?>
+                                        <input type="color" name="<?=$value['id']?>" value="<?=$value['value']?>">
+                                        <?
+                                        break;
+                                        case 'margin': ?>
+                                        <input type="text" name="<?=$value['id']?>" value="<?=$value['value']?>">
+                                        <?
+                                        break;
+                                        case 'margin-top': ?>
+                                        <input type="number" name="<?=$value['id']?>" value="<?=$value['value']?>" min="1" max="5000">
+                                        <?
+                                        break;
+                                        case 'margin-bottom': ?>
+                                        <input type="number" name="<?=$value['id']?>" value="<?=$value['value']?>" min="1" max="5000">
+                                        <?
+                                        break;
+                                        case 'margin-left': ?>
+                                        <input type="number" name="<?=$value['id']?>" value="<?=$value['value']?>" min="1" max="5000">
+                                        <?
+                                        break;
+                                        case 'margin-right': ?>
+                                        <input type="number" name="<?=$value['id']?>" value="<?=$value['value']?>" min="1" max="5000">
+                                        <?
+                                        break;
+                                        case 'text-align': ?>
+                                        <select name="<?=$value['id']?>" value="<?=$value['value']?>">
+                                            <option value="left">Links</option>
+                                            <option value="left">Mitte</option>
+                                            <option value="left">Rechts</option>
+                                        </select>
+                                        <?
+                                        break;
+                                        case 'float': ?>
+                                        <select name="<?=$value['id']?>" value="<?=$value['value']?>">
+                                            <option value="left">Links</option>
+                                            <option value="left">Rechts</option>
+                                        </select>
+                                        <?
+                                        break;
+                                        case 'position': ?>
+                                        <select name="<?=$value['id']?>" value="<?=$value['value']?>">
+                                            <option value="left">absolute</option>
+                                            <option value="left">relative</option>
+                                            <option value="left">fixed</option>
+                                        </select>
+                                        <?
+                                        break;
+                                        default: ?>
+                                        <input type="text" name="<?=$value['id']?>" value="<?=$value['value']?>">
+                                        <?
+                                        break;
+                                    }
+                                    ?>
+
+                                </td>
                                 </tr>
                             <?
                                 }

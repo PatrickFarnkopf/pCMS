@@ -237,7 +237,7 @@ html[xmlns] #nav {
     font-size: 13px;
 }
 
-input[type=text], input[type=password] {
+#add input[type=text], input[type=password] {
     -webkit-border-radius: 3px;
     -moz-border-radius: 3px;
     -ms-border-radius: 3px;
@@ -257,7 +257,7 @@ input[type=text], input[type=password] {
     width: 220px;
 }
 
-input[type="text"]:focus, input[type="password"]:focus {
+#add input[type="text"]:focus, input[type="password"]:focus {
     box-shadow: 0 0 3px #0b75b2 inset;
     background-color: #fff;
     border: 1px solid #0b75b2;

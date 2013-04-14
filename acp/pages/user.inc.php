@@ -142,6 +142,7 @@ $users = \Classes\User::getUsers();
             <div class="register">
                 <div class="header">Benutzer anlegen</div>
                 <div class="regInfo"><?=$registerStatus?></div>
+                <div id="add">
                 <form action="?p=user&a=register" method="post">
                     <input type="text" name="username" placeholder="Benutzername" autocomplete='off'><br>
                     <input type="text" name="email" placeholder="Email" autocomplete='off'><br>
@@ -149,6 +150,7 @@ $users = \Classes\User::getUsers();
                     <input type="password" name="password_wdh" placeholder="Passwort wiederholen" autocomplete='off'><br>
                     <input type="submit" name="register" value="Benutzer anlegen" class="button">
                 </form>
+                </div>
 
                 <div id="deleteDialog" title="Benutzer l&ouml;schen" style="display:none;">
                     <br>Benutzer entfernen<br><br>
