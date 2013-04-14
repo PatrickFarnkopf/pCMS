@@ -42,18 +42,34 @@ if (isset($_POST['color']))
         </ul>
 
         <div id="main">
-            <h3>Body (gesamte Seite)</h3>
-            <table>
-                <tr>
-                    <td>Hintergrundfarbe</td>
-                    <td><form action="?p=styles" method="post"><input type="color" name="color" onchange="submit();" value="#ff0000"></form></td>
-                </tr>
+            
 
-                <tr>
-                    <td>Schriftfarbe</td>
-                    <td><form action="?p=styles" method="post"><input type="color" name="color" onchange="submit();" value="#ff0000"></form></td>
-                </tr>
-            </table>
+            <?php
+                $style = new \Classes\Style(1);
+                $styles = $style->getData();
+                foreach ($styles as $data) {
+                    ?>
+                    <h3><?=$data[0]['declName']?></h3>
+                    <form action="?p=styles" method="post">
+                    <table>
+                        
+                            
+                            <?
+                                foreach ($data['attr'] as $value) {
+                            ?>
+                                <tr>
+                                <td><?=$value['attr']?></td>
+                                <td><input type="color" name="<?=$value['id']?>" value="<?=$value['value']?>"></td>
+                                </tr>
+                            <?
+                                }
+                            ?>
+                            
+                    </table><br>
+                    </form>
+                    <?
+                }
+            ?>
         </div>
 
         <div id="footer">

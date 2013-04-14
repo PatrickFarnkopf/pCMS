@@ -465,6 +465,7 @@ header .stuts span {
 #main td {
     padding-right: 60px;
     padding-left: 60px;
+    min-width: 200px;
 }
 
 #main h3 {

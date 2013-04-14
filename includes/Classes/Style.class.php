@@ -26,21 +26,18 @@ class Style extends Singleton {
         }
     }
 
-    public function getStyleData() {
+    public function getData() {
         $sData = [];
         foreach ($this->data as $i) {
-            $sData[] = [$i, function() {
-                $arR = [];
+            $arR = [];
+            $result = self::getInstance('\Classes\MySQL')
+                ->query('SELECT * FROM style_attribute WHERE sid = '.$i['declId']);
 
-                self::getInstance('\Classes\MySQL')
-                    ->query('SELECT * FROM style_attribute WHERE sid = '.$i['declId']);
+            while ($row = $result->fetch()) {
+                $arR[] = ['id' => $row->id, 'attr' => $row->attribute, 'value' => $row->value];
+            }
 
-                while ($row = $result->fetch()) {
-                    $arR[] = ['id' => $row->id, 'attr' => $row->attribute, 'value' => $row->value];
-                }
-
-                return $arR;
-            }];
+            $sData[] = [$i, 'attr' => $arR];
         }
 
         return $sData;
