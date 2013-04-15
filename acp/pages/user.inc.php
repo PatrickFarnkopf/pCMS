@@ -101,7 +101,7 @@ $users = \Classes\User::getUsers();
             <li><a href="?p=media">Medien</a></li>  
             <li><a href="?p=styles">Styles</a></li>
             <li><a href="#">Inhalte</a></li>
-            <li><a href="#">Plugins</a></li>
+            <li><a href="?p=plugins">Plugins</a></li>
             <li><a href="#">Referenzen</a></li>
             <li><a href="?p=logout">Logout</a></li>
         </ul>

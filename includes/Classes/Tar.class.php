@@ -12,7 +12,7 @@
 
 namespace Classes;
 
-class Tar {
+class Tar extends Singleton {
     const TYPE_DIRECTORY = 5;
 
     private $file, $header, $content;
@@ -54,6 +54,16 @@ class Tar {
             $fileName[] = $this->header[$i]['filename'];
         }
         return $filename;
+    }
+
+    public function getContentArray() {
+        $data = [];
+        for ($i=0;$i<count($this->header);$i++) {
+            fseek($this->file, $this->header[$i]['offset']);
+            $data[] = ['name' => $this->header[$i]['filename'], 'content' => fread($this->file, $this->header[$i]['size'])];
+        }
+
+        return $data;
     }
 
     public function extract($filename, $destination) {

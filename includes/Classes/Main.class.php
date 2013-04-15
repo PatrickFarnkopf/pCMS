@@ -16,6 +16,8 @@ class Main {
     public static function start() {
         ScriptLoader::loadMySQLScripts();
         ScriptLoader::loadUserScripts();
+        ScriptLoader::loadPageScripts();
+        ScriptLoader::loadScriptsFromPlugins();
 
         $page = new Page('Default');
         $page->generate();

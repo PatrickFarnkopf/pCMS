@@ -39,6 +39,7 @@ if (isset($_GET['p'])) {
         case 'media':   require_once 'pages/media.inc.php'; break;
 		case 'user':    require_once 'pages/user.inc.php'; break;
         case 'styles':    require_once 'pages/styles.inc.php'; break;
+        case 'plugins':    require_once 'pages/plugin.inc.php'; break;
         case 'logout': 
             $_SESSION = []; 
             header("Refresh: 5; ?p=login"); 

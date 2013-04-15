@@ -12,33 +12,57 @@
 
 namespace Classes;
 
-class ScriptLoader {
+class ScriptLoader extends Singleton {
+
+    const TYPE_MYSQL    = 1;
+    const TYPE_USER     = 2;
+    const TYPE_PAGE     = 3;
+
     public static $mysqlScripts = [];
     public static $userScripts = [];
     public static $pageScripts = [];
     
     public static function loadMySQLScripts() {
-        self::$mysqlScripts = 
-        [
+        self::$mysqlScripts = [
             //Hier die MySQL Scripts registrieren
             new \Scripts\MySQLExample(),
         ];
     }
 
     public static function loadUserScripts() {
-        self::$userScripts = 
-        [
+        self::$userScripts = [
             //Hier die User Scripts registrieren
             new \Scripts\UserExample(),
         ];
     }
 
     public static function loadPageScripts() {
-        self::$pageScripts =
-        [
+        self::$pageScripts = [
             //Hier die Page Scripts registrieren
             new \Scripts\PageExample(),
         ];
+    }
+
+    public static function loadScriptsFromPlugins() {
+        $result = self::getInstance('\Classes\MySQL')
+        ->tableAction('plugin_scripts')
+        ->select();
+
+        while ($row = $result->fetch()) {
+            switch ($type) {
+                case ScriptLoader::TYPE_MYSQL:
+                    self::$mysqlScripts[] = new $row->script;
+                    break;
+
+                case ScriptLoader::TYPE_USER:
+                    self::$userScripts[] = new $row->script;
+                    break;
+
+                case ScriptLoader::TYPE_PAGE:
+                    self::$pageScripts[] = new $row->script;
+                    break;
+            }
+        }
     }
 }
 

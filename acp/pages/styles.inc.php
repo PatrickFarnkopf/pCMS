@@ -16,8 +16,10 @@ if (!$user->isLoggedIn()) {
     exit;
 }
 
-if (isset($_POST['color']))
-    echo $_POST['color'];
+if (isset($_POST['save'])) {
+    $style = new \Classes\Style(1);
+    $style->saveToDB($_POST);
+}
 
 ?>
 
@@ -36,21 +38,21 @@ if (isset($_POST['color']))
             <li><a href="?p=media">Medien</a></li>  
             <li class="current"><a href="?p=styles">Styles</a></li>
             <li><a href="#">Inhalte</a></li>
-            <li><a href="#">Plugins</a></li>
+            <li><a href="?p=plugins">Plugins</a></li>
             <li><a href="#">Referenzen</a></li>
             <li><a href="?p=logout">Logout</a></li>
         </ul>
 
         <div id="main">
             
-
+            <form action="?p=styles" method="post">
             <?php
                 $style = new \Classes\Style(1);
                 $styles = $style->getData();
                 foreach ($styles as $data) {
                     ?>
                     <h3><?=$data[0]['declName']?></h3>
-                    <form action="?p=styles" method="post">
+                    
                     <table>
                         
                             
@@ -93,24 +95,24 @@ if (isset($_POST['color']))
                                         break;
                                         case 'text-align': ?>
                                         <select name="<?=$value['id']?>" value="<?=$value['value']?>">
-                                            <option value="left">Links</option>
-                                            <option value="left">Mitte</option>
-                                            <option value="left">Rechts</option>
+                                            <option value="left" <?php if($value['value']=='left') echo 'selected="selected"'; ?>>Links</option>
+                                            <option value="center" <?php if($value['value']=='center') echo 'selected="selected"'; ?>>Mitte</option>
+                                            <option value="right" <?php if($value['value']=='right') echo 'selected="selected"'; ?>>Rechts</option>
                                         </select>
                                         <?
                                         break;
                                         case 'float': ?>
                                         <select name="<?=$value['id']?>" value="<?=$value['value']?>">
-                                            <option value="left">Links</option>
-                                            <option value="left">Rechts</option>
+                                            <option value="left" <?php if($value['value']=='left') echo 'selected="selected"'; ?>>Links</option>
+                                            <option value="right" <?php if($value['value']=='right') echo 'selected="selected"'; ?>>Rechts</option>
                                         </select>
                                         <?
                                         break;
                                         case 'position': ?>
                                         <select name="<?=$value['id']?>" value="<?=$value['value']?>">
-                                            <option value="left">absolute</option>
-                                            <option value="left">relative</option>
-                                            <option value="left">fixed</option>
+                                            <option value="absolute" <?php if($value['value']=='absolute') echo 'selected="selected"'; ?>>absolute</option>
+                                            <option value="relative" <?php if($value['value']=='relative') echo 'selected="selected"'; ?>>relative</option>
+                                            <option value="fixed" <?php if($value['value']=='fixed') echo 'selected="selected"'; ?>>fixed</option>
                                         </select>
                                         <?
                                         break;
@@ -127,11 +129,14 @@ if (isset($_POST['color']))
                                 }
                             ?>
                             
-                    </table><br>
-                    </form>
+                    </table>
+                    
+                    <br>
                     <?
                 }
-            ?>
+            ?>      <div align=center><input type="submit" name="save" value="Speichern" class="button"></div>
+                    </form>
+                    
         </div>
 
         <div id="footer">

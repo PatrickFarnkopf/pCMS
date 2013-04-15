@@ -16,7 +16,7 @@ class Style extends Singleton {
     public function __construct($id) {
         $result = self::getInstance('\Classes\MySQL')
             ->query("SELECT style_declaration.id AS declId, style_declaration.name AS declName, description, styles.name AS styleName FROM style_declaration LEFT JOIN styles ON style_declaration.sid = styles.id WHERE style_declaration.sid = $id");
-
+        $this->id = $id;
         while ($row = $result->fetch()) {
             $this->data[] = [
                 'styleName' => $row->styleName, 
@@ -39,8 +39,15 @@ class Style extends Singleton {
 
             $sData[] = [$i, 'attr' => $arR];
         }
-
+        
         return $sData;
+    }
+
+    public function saveToDB($data) {
+        foreach ($data as $key => $value) {
+            self::getInstance('\Classes\MySQL')
+            ->query("UPDATE style_attribute SET value='$value' WHERE id = $key AND sid = ".$this->id);
+        }
     }
 }
 

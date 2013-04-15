@@ -14,7 +14,7 @@ namespace Classes\Scripting;
 
 class PageScript extends \Classes\Singleton {
 
-    function OnGenerate(\Classes\User $user) { }
+    function OnGenerate(&$template) { }
 
     public function _OnGenerate(&$template) {
         foreach (\Classes\ScriptLoader::$pageScripts as $script) {

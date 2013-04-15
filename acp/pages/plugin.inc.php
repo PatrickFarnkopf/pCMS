@@ -29,12 +29,12 @@ if (!$user->isLoggedIn()) {
             <h1><span class="bing">p</span>CMS</h1>
         </div>
         <ul id="nav">
-            <li class="current"><a href="?p=main">&Uuml;bersicht</a></li>
+            <li><a href="?p=main">&Uuml;bersicht</a></li>
             <li><a href="?p=user">Benutzer</a></li>
             <li><a href="?p=media">Medien</a></li>  
             <li><a href="?p=styles">Styles</a></li>
             <li><a href="#">Inhalte</a></li>
-            <li><a href="?p=plugins">Plugins</a></li>
+            <li class="current"><a href="?p=plugins">Plugins</a></li>
             <li><a href="#">Referenzen</a></li>
             <li><a href="?p=logout">Logout</a></li>
         </ul>
