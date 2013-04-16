@@ -58,4 +58,18 @@ class Directory extends \Classes\Singleton {
         $this->path = $path;
         return $this->loadDir();
     }
+
+    public static function removeDir($dir, $delAll) {
+        if(!$dh = @opendir($dir)) return;
+        while (false !== ($obj = readdir($dh))) {
+            if($obj=='.' || $obj=='..') continue;
+            if (is_dir($dir.'/'.$obj)) self::removeDir($dir.'/'.$obj, true);
+            else @unlink($dir.'/'.$obj);
+        }
+
+        closedir($dh);
+        if ($delAll){
+            @rmdir($dir);
+        }
+    }
 }

@@ -29,8 +29,11 @@ function exceptionErrorHandler($errno, $errstr, $errfile, $errline) {
 set_error_handler('exceptionErrorHandler');
 set_exception_handler('exceptionHandler');
 
+\Classes\Singleton::setRootDir(__DIR__.'/../');
+
 \Classes\ScriptLoader::loadMySQLScripts();
 \Classes\ScriptLoader::loadUserScripts();
+\Classes\ScriptLoader::loadScriptsFromPlugins();
 
 if (isset($_GET['p'])) {
 	switch ($_GET['p']) {

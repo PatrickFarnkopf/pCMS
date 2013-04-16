@@ -177,6 +177,35 @@ html[xmlns] #nav {
     width:62%;
 }
 
+#main .pluginlist {
+    margin-top: 50px;
+    text-align: center;
+    float: left;
+    width:62%;
+    max-width:62%;
+}
+
+#main .plugininstall {
+    margin-top: 50px;
+    text-align: center;
+    float: right;
+    width:36%;
+    max-width:36%;
+}
+
+#main .pluginlist th {
+    min-width: 60px;
+    padding-left: 16px;
+    padding-right: 16px;
+}
+
+#main .pluginlist td {
+    min-width: 60px;
+    padding-left: 16px;
+    padding-right: 16px;
+    text-align: center;
+}
+
 #main .userlist table {
     margin: 0px auto;
     font-size: 12px;
@@ -258,6 +287,33 @@ html[xmlns] #nav {
 }
 
 #add input[type="text"]:focus, input[type="password"]:focus {
+    box-shadow: 0 0 3px #0b75b2 inset;
+    background-color: #fff;
+    border: 1px solid #0b75b2;
+    outline: none;
+}
+
+.plugininstall input[type=text], input[type=password] {
+    -webkit-border-radius: 3px;
+    -moz-border-radius: 3px;
+    -ms-border-radius: 3px;
+    -o-border-radius: 3px;
+    border-radius: 3px;
+    box-shadow: 0 1px 0 #fff, 0 -2px 5px rgba(0,0,0,0.08) inset;
+    -webkit-transition: all 0.5s ease;
+    -moz-transition: all 0.5s ease;
+    -ms-transition: all 0.5s ease;
+    -o-transition: all 0.5s ease;
+    transition: all 0.5s ease;
+    border: 1px solid #c8c8c8;
+    color: #777;
+    font: 14px 'Ubuntu', Verdana, Geneva, Arial, Helvetica, sans-serif;
+    margin: 0 0 10px;
+    padding: 8px;
+    width: 220px;
+}
+
+.plugininstall input[type="text"]:focus, input[type="password"]:focus {
     box-shadow: 0 0 3px #0b75b2 inset;
     background-color: #fff;
     border: 1px solid #0b75b2;

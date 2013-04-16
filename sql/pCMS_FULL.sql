@@ -39,7 +39,7 @@ CREATE TABLE `plugin_scripts` (
   `script` varchar(255) NOT NULL,
   `type` int(10) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=16 DEFAULT CHARSET=latin1;
 
 -- ----------------------------
 -- Table structure for plugins
@@ -48,8 +48,10 @@ CREATE TABLE `plugins` (
   `id` int(10) NOT NULL AUTO_INCREMENT,
   `name` varchar(255) NOT NULL,
   `version` varchar(255) NOT NULL,
+  `repo` varchar(255) NOT NULL,
+  `installed` tinyint(3) NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
 
 -- ----------------------------
 -- Table structure for style_attribute
@@ -115,6 +117,7 @@ INSERT INTO `page_content` VALUES ('1', '1', 'SITE_TITLE', 'pCMS | Default');
 INSERT INTO `page_content` VALUES ('2', '1', 'MAIN_CONTENT', 'Willkommen auf der Default Seite von pCMS!');
 INSERT INTO `page_content` VALUES ('3', '1', 'SITE_LOGO', '<h1>pCMS Default Page</h1>');
 INSERT INTO `pages` VALUES ('1', 'Default', '1', '1');
+INSERT INTO `plugins` VALUES ('1', 'Demo', '0.1', '', '0');
 INSERT INTO `style_attribute` VALUES ('1', '1', 'background-color', '#00ffef');
 INSERT INTO `style_attribute` VALUES ('2', '1', 'color', '#ff0000');
 INSERT INTO `style_attribute` VALUES ('3', '1', 'text-align', 'center');
@@ -152,4 +155,4 @@ INSERT INTO `style_declaration` VALUES ('4', '1', '#nav li', '');
 INSERT INTO `style_declaration` VALUES ('5', '1', '#nav a', '');
 INSERT INTO `styles` VALUES ('1', 'Default', './css/default.css');
 INSERT INTO `templates` VALUES ('1', 'Default', './includes/Templates/template_one.tpl');
-INSERT INTO `user` VALUES ('1', 'admin', '202cb962ac59075b964b07152d234b70', 'patrickfarnkopf4@gmx.de');
+INSERT INTO `user` VALUES ('1', 'admin', '202cb962ac59075b964b07152d234b70', 'demo@demo.de');

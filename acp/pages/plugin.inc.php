@@ -1,10 +1,10 @@
 <?php
 
 /**
-* Licensed under The Apache License
+* Licensed under tde Apache License
 *
 * @copyright Copyright 2013 Patrick Farnkopf
-* @link https://github.com/PatrickFarnkopf/pCMS
+* @link https://gitdub.com/PatrickFarnkopf/pCMS
 * @license Apache License v2 (http://www.apache.org/licenses/LICENSE-2.0.txt)
 * @author Patrick Farnkopf
 *
@@ -16,6 +16,9 @@ if (!$user->isLoggedIn()) {
     exit;
 }
 
+if (isset($_POST['addPlugin'])) {
+    \Classes\Plugin::install($_POST['repo'], isset($_POST['install']));
+}
 
 ?>
 
@@ -40,7 +43,44 @@ if (!$user->isLoggedIn()) {
         </ul>
 
         <div id="main">
-            
+            <div class="pluginlist">
+                <h2>Installierte Plugins</h2>
+                <table style="max-width:60%">
+                <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Name</th>
+                            <th>Version</th>
+                            <th>Status</th>
+                        </tr>
+                </thead>
+                <tbody>
+                <?
+                $data = \Classes\Plugin::getInstalledPlugins();
+                foreach ($data as $key => $value) {
+                ?>
+
+                    <tr>
+                        <td><?=$value['id']?></td>
+                        <td><?=$value['name']?></td>
+                        <td><?=$value['version']?></td>
+                        <td><?=$value['installed']?'aktiv':'inaktiv'?></td>
+                    </tr>
+
+                <?
+                }
+                ?>
+            </tbody>
+                </table>
+            </div>
+            <div class="plugininstall">
+                <h2>Plugin installieren</h2>
+                <form action="?p=plugins" method="post">
+                    <input type="text" name="repo" placeholder="Repository URL"><br>
+                    direkt aktivieren? <input type="checkbox" name="install" value="1"><br><br>
+                    <input type="submit" name="addPlugin" value="Plugin installieren" class="button">
+                </form>
+            </div>
         </div>
 
         <div id="footer">

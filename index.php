@@ -29,6 +29,8 @@ function exceptionErrorHandler($errno, $errstr, $errfile, $errline) {
 set_error_handler('exceptionErrorHandler');
 set_exception_handler('exceptionHandler');
 
+\Classes\Singleton::setRootDir(__DIR__);
+
 \Classes\Main::start();
 
 ?>

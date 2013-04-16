@@ -49,17 +49,18 @@ class ScriptLoader extends Singleton {
         ->select();
 
         while ($row = $result->fetch()) {
-            switch ($type) {
+            $script = '\Scripts\\'.$row->script;
+            switch ($row->type) {
                 case ScriptLoader::TYPE_MYSQL:
-                    self::$mysqlScripts[] = new $row->script;
+                    self::$mysqlScripts[] = new $script();
                     break;
 
                 case ScriptLoader::TYPE_USER:
-                    self::$userScripts[] = new $row->script;
+                    self::$userScripts[] = new $script();
                     break;
 
                 case ScriptLoader::TYPE_PAGE:
-                    self::$pageScripts[] = new $row->script;
+                    self::$pageScripts[] = new $script();
                     break;
             }
         }

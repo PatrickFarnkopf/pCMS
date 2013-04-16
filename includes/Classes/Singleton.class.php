@@ -13,6 +13,7 @@
 namespace Classes;
 abstract class Singleton {
     private static $instance = [];
+    private static $dir;
 
     final public static function getInstance($class) {
         if (!isset(self::$instance[$class])) {
@@ -24,6 +25,14 @@ abstract class Singleton {
 
     public static function registerSelf($name, $object) {
         self::$instance[$name] = $object;
+    }
+
+    public static function setRootDir($dir) {
+        self::$dir = $dir;
+    }
+
+    public static function getRootDir() {
+        return self::$dir;
     }
 
     final public function __clone() {
