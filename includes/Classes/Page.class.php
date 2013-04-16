@@ -114,6 +114,33 @@ class Page extends Singleton {
         self::getInstance('\Classes\MySQL')
         ->query("UPDATE page_content SET value='".$data['contentData']."' WHERE id = ".$data['ContId']);
     }
+
+    public static function saveNav($data) {
+        self::getInstance('\Classes\MySQL')
+        ->query("UPDATE navigation SET name='".$data['navName']."', link='".$data['navLink']."' WHERE id = ".$data['navId']);
+    }
+
+    public static function delNav($id) {
+        self::getInstance('\Classes\MySQL')
+        ->query("DELETE FROM navigation WHERE id = ".$id);
+    }
+
+    public function getNavData() {
+        $result = self::getInstance('\Classes\MySQL')
+        ->query("SELECT * FROM navigation");
+        $data = [];
+
+        while ($row = $result->fetch()) {
+            $data[] = ['id' => $row->id, 'name' => $row->name, 'link' => $row->link];
+        }
+
+        return $data;
+    }
+
+    public static function addNav($data) {
+        self::getInstance('\Classes\MySQL')
+        ->query("INSERT INTO navigation (name, link) VALUES ('".$data['navName']."','".$data['navLink']."')");
+    }
 }
 
 ?>
