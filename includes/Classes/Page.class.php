@@ -97,6 +97,23 @@ class Page extends Singleton {
     public function getContent() {
         return file_get_contents('Cache/pages/'.$this->pageName.'.html');
     }
+
+    public function getData() {
+        $result = self::getInstance('\Classes\MySQL')
+        ->query("SELECT * FROM page_content WHERE pid = ".$this->pageId);
+        $data = [];
+
+        while ($row = $result->fetch()) {
+            $data[] = ['id' => $row->id, 'variable' => $row->variable, 'value' => $row->value];
+        }
+
+        return $data;
+    }
+
+    public static function saveContent($data) {
+        self::getInstance('\Classes\MySQL')
+        ->query("UPDATE page_content SET value='".$data['contentData']."' WHERE id = ".$data['ContId']);
+    }
 }
 
 ?>

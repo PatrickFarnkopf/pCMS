@@ -33,7 +33,7 @@ if (!$user->isLoggedIn()) {
             <li><a href="?p=user">Benutzer</a></li>
             <li><a href="?p=media">Medien</a></li>  
             <li><a href="?p=styles">Styles</a></li>
-            <li><a href="#">Inhalte</a></li>
+            <li><a href="?p=content">Inhalte</a></li>
             <li><a href="?p=plugins">Plugins</a></li>
             <li><a href="#">Referenzen</a></li>
             <li><a href="?p=logout">Logout</a></li>

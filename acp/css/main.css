@@ -206,6 +206,25 @@ html[xmlns] #nav {
     text-align: center;
 }
 
+#main .contentlist th {
+    min-width: 60px;
+    padding-left: 26px;
+    padding-right: 26px;
+}
+
+#main .contentlist td {
+    min-width: 60px;
+    padding-left: 56px;
+    padding-right: 56px;
+    text-align: center;
+}
+
+#main .contentlist table {
+    margin: 0px auto;
+    font-size: 18px;
+    text-align: center;
+}
+
 #main .userlist table {
     margin: 0px auto;
     font-size: 12px;
